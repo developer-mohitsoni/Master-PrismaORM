@@ -3,7 +3,13 @@ import { prisma } from "../db/prisma";
 import { Post } from "@/types";
 
 const PostPage = async () => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    where: {
+      title: {
+        contains: "GL",
+      },
+    },
+  });
   return (
     <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
       <h1 className="text-3xl font-semibold">
