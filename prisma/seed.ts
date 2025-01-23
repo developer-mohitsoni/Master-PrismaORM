@@ -1,5 +1,5 @@
 import { posts } from "../src/app/utils/post";
-import prisma from "../src/app/db/prisma";
+import { prisma } from "../src/app/db/prisma";
 
 async function main() {
   try {
