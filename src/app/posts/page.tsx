@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "../db/prisma";
 import { Post } from "@/types";
+import { createPost } from "@/actions/actions";
 
 const PostPage = async () => {
   const posts = await prisma.post.findMany({
@@ -35,18 +36,18 @@ const PostPage = async () => {
         ))}
       </ul>
 
-      <form className="flex flex-col gap-y-2 w-[300px]">
+      <form className="flex flex-col gap-y-2 w-[300px]" action={createPost}>
         <input
           type="text"
           name="title"
           placeholder="Title"
-          className="px-2 py-1 rounded-sm"
+          className="px-2 py-1 rounded-sm text-black placeholder:text-slate-600"
         />
         <textarea
           name="content"
           rows={5}
           placeholder="Content"
-          className="px-2 py-1 rounded-sm"
+          className="px-2 py-1 rounded-sm text-black placeholder:text-slate-600"
         />
         <button
           className="bg-blue-500 py-2 text-white rounded-sm"
