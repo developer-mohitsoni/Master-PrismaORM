@@ -34,6 +34,27 @@ const PostPage = async () => {
           </li>
         ))}
       </ul>
+
+      <form className="flex flex-col gap-y-2 w-[300px]">
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          className="px-2 py-1 rounded-sm"
+        />
+        <textarea
+          name="content"
+          rows={5}
+          placeholder="Content"
+          className="px-2 py-1 rounded-sm"
+        />
+        <button
+          className="bg-blue-500 py-2 text-white rounded-sm"
+          type="submit"
+        >
+          Create Post
+        </button>
+      </form>
     </main>
   );
 };
