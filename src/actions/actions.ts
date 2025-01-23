@@ -2,23 +2,33 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "../app/db/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function createPost(formData: FormData) {
-  await prisma.post.create({
-    data: {
-      title: formData.get("title") as string,
-      content: formData.get("content") as string,
-      slug: (formData.get("title") as string)
-        .replace(/\s+/g, "-")
-        .toLowerCase(),
-      author: {
-        connect: {
-          email: "john@example.com",
+  try {
+    await prisma.post.create({
+      data: {
+        title: formData.get("title") as string,
+        content: formData.get("content") as string,
+        slug: (formData.get("title") as string)
+          .replace(/\s+/g, "-")
+          .toLowerCase(),
+        author: {
+          connect: {
+            email: "john@example.com",
+          },
         },
       },
-    },
-  });
-
+    });
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        console.log(
+          "There is a unique constraint violation, a new user cannot be created with this email."
+        );
+      }
+    }
+  }
   revalidatePath("/posts");
 }
 
