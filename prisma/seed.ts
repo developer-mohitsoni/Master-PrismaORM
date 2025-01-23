@@ -3,24 +3,12 @@ import { prisma } from "../src/app/db/prisma";
 
 async function main() {
   try {
-    // Create a default user
-    const user = await prisma.user.create({
-      data: {
-        email: "john@example.com",
-        hashedPassword: "john@123", // Replace with an actual hash for production
-      },
-    });
-    // Use Promise.all to execute all create operations concurrently
-    await Promise.all(
-      posts.map((post) =>
-        prisma.post.create({
-          data: {
-            ...post,
-            authorId: user.id,
-          },
-        })
-      )
-    );
+    for (const post of posts) {
+      const newPost = await prisma.post.create({
+        data: post,
+      });
+      console.log(`Created post with ID: ${newPost.id}`);
+    }
     console.log("Posts seeded successfully.");
   } catch (error) {
     console.error("Error seeding posts:", error);
