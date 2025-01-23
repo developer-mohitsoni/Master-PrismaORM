@@ -6,8 +6,8 @@ async function main() {
     // Create a default user
     const user = await prisma.user.create({
       data: {
-        email: "default.user@example.com",
-        hashedPassword: "hashed_password_123", // Replace with an actual hash for production
+        email: "john@example.com",
+        hashedPassword: "john@123", // Replace with an actual hash for production
       },
     });
     // Use Promise.all to execute all create operations concurrently
