@@ -7,7 +7,7 @@ const PostPage = async () => {
   const posts = await prisma.post.findMany({
     where: {
       title: {
-        contains: "GL",
+        // contains: "GL",
       },
     },
     orderBy: {
@@ -19,8 +19,8 @@ const PostPage = async () => {
       slug: true,
       content: true,
     },
-    take: 1,
-    skip: 1,
+    // take: 1,
+    // skip: 1,
   });
 
   const postCount = await prisma.post.count();
