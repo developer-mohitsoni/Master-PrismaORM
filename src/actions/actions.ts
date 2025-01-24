@@ -20,6 +20,11 @@ export async function createPost(formData: FormData) {
         },
       },
     });
+
+    // invalidate the prisma cache
+    await prisma.$accelerate.invalidate({
+      tags: ["posts"],
+    });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
