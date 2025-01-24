@@ -30,6 +30,11 @@ const PostPage = async () => {
     include: {
       posts: true,
     },
+    cacheStrategy: {
+      ttl: 60,
+      swr: 60,
+      tags: ["posts"],
+    },
   });
   // const postCount = await prisma.post.count();
   return (
